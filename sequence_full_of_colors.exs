@@ -1,7 +1,7 @@
 # https://www.hackerrank.com/challenges/sequence-full-of-colors
 defmodule Solution do
   def solve(s) do
-    n = String.length(s)
+    n = byte_size(s)
     r = check(s, n, 0, 0, 0, 0, 0)
     if r == true do
       IO.puts "True"
@@ -11,7 +11,7 @@ defmodule Solution do
   end
 
   defp check(s, n, idx, r, g, b, y) do
-    if r - g > 1 or y - b > 1 do
+    if abs(r - g) > 1 or abs(y - b) > 1 do
       false
     else
       if idx == n do
@@ -21,7 +21,7 @@ defmodule Solution do
           false
         end
       else
-        h = String.at(s, idx)
+        h = binary_part(s, idx, 1)
         case h do
           "R" -> check(s, n, idx + 1, r+1, g, b, y)
           "G" -> check(s, n, idx + 1, r, g+1, b, y)
@@ -33,7 +33,7 @@ defmodule Solution do
   end
 
   def main() do
-    IO.read(1)
+    IO.gets("")
     String.strip(IO.read(:stdio, :all))
       |> String.split("\n")
       |> Enum.map(&solve/1)
