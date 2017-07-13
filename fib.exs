@@ -13,10 +13,20 @@ defmodule Solution do
     fib(n-1) + fib(n-2)
   end
 
+  # Tail recursive
+  def tail_fib(n, a \\ 0, b \\ 1)
+  def tail_fib(n, a, b) when n > 1 do
+     tail_fib(n-1, b, a+b)
+  end
+  def tail_fib(_, a, _) do
+     a
+  end
+
+
+
   def main() do
     n = String.to_integer(String.trim(IO.gets ""))
-    # data = IO.read(:stdio, :all) |> String.split([" ", "\n"])
-    IO.puts fib(n)
+    IO.puts tail_fib(n)
   end
 end
 
